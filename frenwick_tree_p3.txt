@@ -1,0 +1,46 @@
+import java.util.*;
+
+public class Main {
+    static int n = 8;
+    static int bits[] = new int[n + 1];
+
+    public static void init(int val, int i) {
+        i++;
+        while (i <= n) {
+            bits[i] += val;
+            i += (i & -i);
+        }
+    }
+
+    public static int sum(int i) {
+        i++;
+        int sum = 0;
+        while (i > 0) {
+            sum += bits[i];
+            i -= (i & -i);
+        }
+        return sum;
+    }
+
+    public static int range(int i, int j) {
+        return sum(j) - sum(i-1);
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int q = sc.nextInt();
+        int[] nums = new int[n];
+        for (int i = 0; i < n; i++) {
+            nums[i] = sc.nextInt();
+        }
+        for (int i = 0; i < n; i++) {
+            init(nums[i], i);
+        }
+        // for(int i=0;i<q;i++){
+        //   int x=sc.nextInt();
+        //   int y=sc.nextInt();
+       
+        System.out.println(range(1, 5));
+        // }
+    }
+}
